@@ -37,7 +37,7 @@ func handler(w http.ResponseWriter, req *http.Request) {
 		Time: fmt.Sprintf("%02d:%02d", time.Now().Hour(), time.Now().Minute()),
 		Buttons: []Button{
 			{"GitHub", "", "https://github.com/"},
-			{"Google", "", "https://google.com/"},
+			{"DuckDuckGo", "󰇥", "https://duckduckgo.com/"},
 			{"YouTube", "󰗃", "https://youtube.com/"},
 			{"Music", "󰝚", "https://music.yandex.ru/"},
 		},
