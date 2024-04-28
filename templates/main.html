@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<style>
+	@import url('https://unpkg.com/@catppuccin/palette/css/catppuccin.css');
+	body {
+		font-family: "JetBrainsMono Nerd Font";
+		background-color: var(--ctp-mocha-base);
+	}
+	* {
+		color: var(--ctp-mocha-text);
+	}
+	.time {
+		display: inline-block;
+		font-size: 150px;
+	}
+	.clock {
+		text-align: center;
+		margin: 10px;
+	}
+	.wtr {
+		display: inline-block;
+		font-size: 30px;
+	}
+	.weather {
+		text-align: center;
+		margin: 10px;
+	}
+	.buttons {
+		text-align: center; 
+		margin-bottom: 100px;
+		margin-left: 50%;
+		transform: translateX(-50%); 
+	}
+	.button {
+		border-radius: 10px;
+		background-color: var(--ctp-mocha-mantle);
+		font-size: 30px;
+		padding: 20px;
+		display: inline-block;
+		margin: 10px; 
+		text-decoration: none;
+	}
+</style>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="darkreader" content="disable">
+		<title>My cute homepage</title>
+	</head>
+	<body>
+		<div class="clock">
+			<h1 class="time">{{.Time}}</h1>
+		</div>
+		<div class="buttons">
+		{{range .Buttons}}
+			<a class="button" href="{{.Link}}">
+				<div class="icon"> {{.Icon}} </div>
+				<div class="name"> {{.Name}} </div>
+			</a>
+			{{end}}
+		</div>
+		<div class="weather">
+			<h1 class="wtr">{{.Weather}}</h1>
+		</div>
+	</body>
+</html>
