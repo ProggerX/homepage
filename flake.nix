@@ -4,17 +4,23 @@
 	};
 
 	outputs = { self, nixpkgs, ... }:
-	let system = "aarch64-linux";
+	let system = "x86_64-linux";
 	pkgs = nixpkgs.legacyPackages.${system};
 	in {
-		packages."${system}".default = pkgs.stdenv.mkDerivation {
+		packages."${system}".default = pkgs.buildGoModule {
 			name = "homepage";
 			src = ./.;
-			nativeBuildInputs = with pkgs; [
-				go
-			];
-			buildPhase = ''GOGACHE=off go build .'';
-			installPhase = ''mkdir $out && cp -r ./* $out'';
+			vendorHash = "sha256-HcEwgSOsmWHcT+f/28LENLMc7HUs6y1pJ5UDur7U7i8=";
+			installPhase = ''
+				runHook preInstall
+
+				mkdir -p $out
+				dir="$GOPATH/bin"
+				[ -e "$dir" ] && cp -r $dir $out
+				cp -r ./* $out
+				
+				runHook postInstall
+			'';
 		};
 		nixosModules.homepage = { config, lib, ... }: {
 			options = {
@@ -25,7 +31,7 @@
 					wantedBy = [ "multi-user.target" ];
 					serviceConfig = {
 						WorkingDirectory = "${self.packages."${system}".default}";
-						ExecStart = "${self.packages."${system}".default}/homepage";
+						ExecStart = "${self.packages."${system}".default}/bin/homepage";
 					};
 				};
 				services.nginx = {
