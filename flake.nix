@@ -13,7 +13,7 @@
 			nativeBuildInputs = with pkgs; [
 				go
 			];
-			buildPhase = ''go build .'';
+			buildPhase = ''GOGACHE=off go build .'';
 			installPhase = ''mkdir $out && cp -r ./* $out'';
 		};
 		nixosModules.homepage = { config, lib, ... }: {
