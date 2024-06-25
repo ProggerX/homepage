@@ -16,11 +16,11 @@
 			buildPhase = ''go build .'';
 			installPhase = ''mkdir $out && cp -r ./* $out'';
 		};
-		nixosModules.site = { config, lib, ... }: {
+		nixosModules.homepage = { config, lib, ... }: {
 			options = {
 				server.homepage.enable = lib.mkEnableOption "Enable ProggerX's homepage";
 			};
-			config = lib.mkIf config.server.site.enable {
+			config = lib.mkIf config.server.homepage.enable {
 				systemd.services.homepage = {
 					wantedBy = [ "multi-user.target" ];
 					serviceConfig = {
@@ -30,7 +30,7 @@
 				};
 				services.nginx = {
 					enable = true;
-					virtualHosts.site = {
+					virtualHosts.homepage = {
 						addSSL = true;
 						enableACME = true;
 						serverName = "home.bald.su";
